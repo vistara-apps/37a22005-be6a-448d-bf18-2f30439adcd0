@@ -1,104 +1,154 @@
 # CareCircles - Connect Anonymously, Heal Together
 
-A Base MiniApp for anonymous peer support groups focused on mental health, built with Next.js 15 and MiniKit.
+A modern, accessible web application for anonymous peer support groups focused on mental health, built with Next.js 15 and enhanced with comprehensive UI/UX improvements.
 
-## Features
+## ✨ Recent UI/UX Improvements
 
-- **Anonymous Group Matching**: Users are matched into small, anonymous peer support groups based on their disclosed struggles
-- **Guided Peer Sessions**: Structured sessions with prompts and conversation starters for meaningful interactions
-- **Professional Oversight**: Moderated environment with safety measures and crisis detection
-- **Privacy & Anonymity**: Robust measures to ensure user anonymity and data privacy
+### 🎨 Design System Overhaul
+- **Unified Color System**: Consistent CSS variables and Tailwind configuration
+- **Enhanced Typography**: Improved visual hierarchy with better font weights and spacing
+- **Modern Gradients**: Beautiful gradient backgrounds and interactive elements
+- **Micro-interactions**: Subtle animations and hover effects for better engagement
 
-## Tech Stack
+### ♿ Accessibility Enhancements
+- **ARIA Labels**: Comprehensive screen reader support
+- **Focus Management**: Visible focus rings and keyboard navigation
+- **Semantic HTML**: Proper roles and landmarks for assistive technologies
+- **Touch Targets**: Minimum 44px touch targets for mobile accessibility
 
-- Next.js 15 with App Router
-- TypeScript
-- Tailwind CSS
-- MiniKit (Base wallet integration)
-- OnchainKit (Coinbase components)
+### 📱 Mobile-First Optimizations
+- **Responsive Design**: Optimized for all screen sizes
+- **Touch Interactions**: Enhanced mobile gestures and feedback
+- **Safe Area Support**: Proper handling of device notches and home indicators
+- **iOS Optimizations**: Prevents zoom on input focus and improves Safari experience
 
-## Getting Started
+### 🚀 Performance & UX
+- **Loading States**: Beautiful loading spinners and skeleton screens
+- **Error Boundaries**: Graceful error handling with recovery options
+- **Auto-resize Textarea**: Dynamic input sizing for better chat experience
+- **Optimized Animations**: Smooth, performant CSS animations using transform and opacity
 
-1. Clone the repository
-2. Install dependencies:
+### 🎯 Key Features
+
+- **Anonymous Group Matching**: Join support groups based on mental health focus areas
+- **Guided Peer Sessions**: Structured conversations with thoughtful prompts
+- **Real-time Chat**: Smooth messaging experience with typing indicators
+- **Professional Oversight**: Moderated environment ensuring safety and support
+- **Privacy-First**: Complete anonymity with generated pseudonyms
+
+## 🛠 Tech Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript for type safety
+- **Styling**: Tailwind CSS with custom design system
+- **Performance**: Optimized builds with code splitting
+- **Accessibility**: WCAG 2.1 AA compliant
+- **Mobile**: PWA-ready with manifest configuration
+
+## 🚀 Quick Start
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/vistara-apps/37a22005-be6a-448d-bf18-2f30439adcd0.git
+   cd 37a22005-be6a-448d-bf18-2f30439adcd0
+   ```
+
+2. **Install dependencies**
    ```bash
    npm install
    ```
 
-3. Set up environment variables:
-   - Copy `.env.local` and add your OnchainKit API key
-   - Get your API key from https://portal.cdp.coinbase.com/
-
-4. Run the development server:
+3. **Start development server**
    ```bash
    npm run dev
    ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser
+4. **Open in browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-## Project Structure
+## 📁 Project Structure
 
 ```
-├── app/                 # Next.js App Router
-│   ├── layout.tsx      # Root layout with providers
-│   ├── page.tsx        # Main page component
-│   ├── providers.tsx   # MiniKit and OnchainKit providers
-│   └── globals.css     # Global styles
-├── components/         # React components
-│   ├── AppShell.tsx    # Main app container
-│   ├── GroupSelection.tsx # Group selection interface
-│   ├── ChatRoom.tsx    # Chat interface
-│   ├── ChatBubble.tsx  # Individual message component
-│   ├── PromptCard.tsx  # Guided prompt display
-│   └── UserStatusBadge.tsx # User status indicator
-├── lib/               # Utilities and types
-│   ├── types.ts       # TypeScript type definitions
-│   ├── constants.ts   # App constants and data
-│   └── utils.ts       # Utility functions
+├── app/                    # Next.js App Router
+│   ├── layout.tsx         # Root layout with error boundary
+│   ├── page.tsx          # Main application page
+│   ├── providers.tsx     # App providers and context
+│   └── globals.css       # Global styles and CSS variables
+├── components/            # React components
+│   ├── AppShell.tsx      # Main app container with header
+│   ├── GroupSelection.tsx # Group browsing and selection
+│   ├── ChatRoom.tsx      # Chat interface with messages
+│   ├── ChatBubble.tsx    # Individual message bubbles
+│   ├── PromptCard.tsx    # Guided conversation prompts
+│   ├── UserStatusBadge.tsx # Anonymous status indicator
+│   ├── LoadingSpinner.tsx # Reusable loading component
+│   └── ErrorBoundary.tsx # Error handling component
+├── lib/                   # Utilities and configuration
+│   ├── types.ts          # TypeScript type definitions
+│   ├── constants.ts      # App constants and support groups
+│   ├── utils.ts          # Helper functions
+│   ├── analytics.ts      # Privacy-focused analytics
+│   └── hooks/            # Custom React hooks
+│       └── usePerformance.ts # Performance monitoring
+└── public/               # Static assets
+    └── manifest.json     # PWA manifest
 ```
 
-## Key Components
+## 🎨 Design System
 
-### Group Selection
-- Browse available support groups by category (Anxiety, Depression, Trauma)
-- View group member counts and activity status
-- Join groups with generated anonymous pseudonyms
+### Colors
+- **Primary**: Pink gradient (`#e879f9`) for main actions
+- **Surface**: Clean whites and light grays
+- **Text**: High contrast dark grays for readability
+- **Category Colors**: Distinct colors for anxiety, depression, and trauma support
 
-### Chat Room
-- Real-time anonymous messaging
-- Guided prompts from moderators
-- Professional oversight and safety features
-- Anonymous user identification
+### Typography
+- **Headings**: Bold weights with proper hierarchy
+- **Body Text**: Optimized line heights and spacing
+- **Interactive**: Clear button and link styling
 
-### Privacy Features
-- Generated pseudonyms for anonymity
-- No personal information required
-- Wallet-based identity without exposure
-- Moderated environment for safety
+### Animations
+- **Micro-interactions**: Hover and focus states
+- **Page Transitions**: Smooth fade and slide animations
+- **Loading States**: Elegant spinners and progress indicators
 
-## Development
+## 🔒 Privacy & Security
 
-The app is built as a Base MiniApp and integrates with:
-- Base wallet for identity and transactions
-- Farcaster frames for social integration
-- OnchainKit components for Web3 functionality
+- **Anonymous by Design**: No personal information required
+- **Secure Headers**: Protection against XSS and clickjacking
+- **Privacy-Focused Analytics**: Anonymous usage tracking only
+- **Data Minimization**: Only essential data is processed
 
-## Deployment
+## 📱 Mobile Experience
 
-Deploy to Vercel or any Next.js-compatible platform:
+- **Progressive Web App**: Installable on mobile devices
+- **Touch Optimized**: Large touch targets and gesture support
+- **Responsive Layout**: Adapts to all screen sizes
+- **iOS Safari**: Optimized for mobile Safari quirks
 
+## 🚀 Deployment
+
+### Build for Production
 ```bash
 npm run build
 npm start
 ```
 
-## Contributing
+### Deploy to Vercel
+The app is optimized for Vercel deployment with automatic builds and optimizations.
+
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## License
+## 📄 License
 
-MIT License - see LICENSE file for details
+MIT License - see [LICENSE](LICENSE) file for details.
+
+---
+
+**CareCircles** - Supporting mental health through anonymous peer connections. Built with care for accessibility, privacy, and user experience.
