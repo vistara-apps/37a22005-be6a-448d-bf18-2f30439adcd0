@@ -3,16 +3,32 @@
 @tailwind utilities;
 
 :root {
-  --bg: hsl(220, 15%, 95%);
-  --accent: hsl(140, 70%, 50%);
-  --primary: hsl(240, 80%, 60%);
+  /* Background & Surface */
+  --bg: hsl(220, 15%, 97%);
   --surface: hsl(0, 0%, 100%);
+  
+  /* Text */
   --text-primary: hsl(220, 15%, 15%);
-  --text-secondary: hsl(220, 15%, 40%);
-  --anxiety: hsl(120, 50%, 60%);
-  --depression: hsl(240, 50%, 60%);
-  --trauma: hsl(160, 50%, 60%);
-  --pink: hsl(320, 50%, 70%);
+  --text-secondary: hsl(220, 15%, 45%);
+  
+  /* Brand Colors */
+  --primary: hsl(240, 80%, 60%);
+  --accent: hsl(140, 70%, 50%);
+  --pink: hsl(320, 65%, 65%);
+  
+  /* Category Colors - Softer, more accessible */
+  --anxiety: hsl(120, 40%, 55%);
+  --depression: hsl(240, 40%, 55%);
+  --trauma: hsl(180, 40%, 55%);
+  
+  /* Semantic Colors */
+  --success: hsl(142, 76%, 36%);
+  --warning: hsl(38, 92%, 50%);
+  --error: hsl(0, 84%, 60%);
+  
+  /* Interactive States */
+  --focus-ring: hsl(320, 65%, 65%);
+  --hover-overlay: hsla(0, 0%, 0%, 0.04);
 }
 
 * {
@@ -35,6 +51,11 @@ body {
 body {
   color: var(--text-primary);
   background: var(--bg);
+  /* iOS Safari optimization */
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  /* Prevent horizontal scroll */
+  overflow-x: hidden;
 }
 
 a {
@@ -72,4 +93,45 @@ button {
     transform: translateY(0);
     opacity: 1;
   }
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+  /* Improve touch targets */
+  button, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better text input on mobile */
+  input, textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Safe area support for devices with notches */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
 }

@@ -109,26 +109,36 @@ export function ChatRoom({ group, userPseudonym, onLeaveGroup }: ChatRoomProps) 
     }
   };
 
+  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNewMessage(e.target.value);
+    
+    // Auto-resize textarea
+    const textarea = e.target;
+    textarea.style.height = '48px';
+    textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+  };
+
   return (
     <div className="flex flex-col h-screen animate-fade-in">
       {/* Chat Header */}
-      <div className="bg-surface border-b border-gray-100 px-4 py-3">
+      <div className="bg-surface/95 backdrop-blur-sm border-b border-gray-200 px-4 py-4 sticky top-0 z-20">
         <div className="flex items-center justify-between">
           <button
             onClick={onLeaveGroup}
-            className="p-2 -ml-2 text-textSecondary hover:text-textPrimary transition-colors duration-200"
+            className="p-2 -ml-2 text-textSecondary hover:text-textPrimary focus:outline-none focus:ring-2 focus:ring-pink focus:ring-offset-2 focus:ring-offset-surface rounded-md transition-all duration-200"
+            aria-label="Leave group and return to group selection"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
-          <div className="flex items-center space-x-2">
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${group.color}`}>
-              <span className="text-sm">{getGroupIcon(group.category)}</span>
+          <div className="flex items-center space-x-3">
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${group.color} shadow-inner-sm`}>
+              <span className="text-lg">{getGroupIcon(group.category)}</span>
             </div>
             <div className="text-center">
-              <h2 className="font-medium text-textPrimary">{group.name} Circle</h2>
-              <p className="text-xs text-textSecondary">{group.memberCount} members</p>
+              <h2 className="font-semibold text-textPrimary text-lg">{group.name}</h2>
+              <p className="text-sm text-textSecondary font-medium">{group.memberCount} members active</p>
             </div>
           </div>
           <UserStatusBadge variant="anonymous" />
@@ -136,7 +146,7 @@ export function ChatRoom({ group, userPseudonym, onLeaveGroup }: ChatRoomProps) 
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
+      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4" role="log" aria-live="polite" aria-label="Chat messages">
         {messages.map((message) => (
           <div key={message.messageId}>
             {message.isPrompt ? (
@@ -155,13 +165,13 @@ export function ChatRoom({ group, userPseudonym, onLeaveGroup }: ChatRoomProps) 
         ))}
         
         {isTyping && (
-          <div className="flex items-center space-x-2 text-textSecondary">
+          <div className="flex items-center space-x-3 text-textSecondary animate-fade-in" aria-live="polite">
             <div className="flex space-x-1">
-              <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-              <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-              <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+              <div className="w-2 h-2 bg-pink rounded-full animate-bounce"></div>
+              <div className="w-2 h-2 bg-pink rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+              <div className="w-2 h-2 bg-pink rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
             </div>
-            <span className="text-sm">Someone is typing...</span>
+            <span className="text-sm font-medium">Someone is typing...</span>
           </div>
         )}
         
@@ -169,27 +179,36 @@ export function ChatRoom({ group, userPseudonym, onLeaveGroup }: ChatRoomProps) 
       </div>
 
       {/* Message Input */}
-      <div className="bg-surface border-t border-gray-100 px-4 py-3">
-        <div className="flex items-end space-x-2">
+      <div className="bg-surface/95 backdrop-blur-sm border-t border-gray-200 px-4 py-4 sticky bottom-0">
+        <div className="flex items-end space-x-3">
           <div className="flex-1">
+            <label htmlFor="message-input" className="sr-only">
+              Type your message
+            </label>
             <textarea
+              id="message-input"
               value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
+              onChange={handleTextareaChange}
               onKeyPress={handleKeyPress}
               placeholder="Share your thoughts safely and anonymously..."
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-pink focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-200 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-pink focus:border-pink transition-all duration-200 bg-gray-50 focus:bg-white"
               rows={1}
-              style={{ minHeight: '40px', maxHeight: '120px' }}
+              style={{ minHeight: '48px', maxHeight: '120px' }}
+              aria-describedby="message-help"
             />
+            <div id="message-help" className="sr-only">
+              Press Enter to send, Shift+Enter for new line
+            </div>
           </div>
           <button
             onClick={handleSendMessage}
             disabled={!newMessage.trim()}
-            className={`p-2 rounded-lg transition-colors duration-200 ${
+            className={`p-3 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-pink focus:ring-offset-2 focus:ring-offset-surface transform active:scale-95 ${
               newMessage.trim()
-                ? 'bg-pink text-white hover:opacity-90'
+                ? 'bg-gradient-to-r from-pink to-purple-500 text-white hover:shadow-card-hover hover:scale-105'
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }`}
+            aria-label={newMessage.trim() ? 'Send message' : 'Enter a message to send'}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path d="M22 2L11 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
